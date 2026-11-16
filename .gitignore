@@ -1,0 +1,9 @@
+# database is created by the app on first run
+donors.db
+# report, slides and study notes are not part of the code
+*.pdf
+*.docx
+*.pptx
+assets/
+__pycache__/
+.DS_Store
