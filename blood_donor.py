@@ -233,7 +233,7 @@ def show_donor_card(event=None):
     card = tk.Toplevel(root)
     card.title(name)
     card.configure(bg=WHITE)
-    card.resizable(False, False)
+    card.resizable(False, False); card.transient(root)    # transient = card always stays on top of the main window
     top = tk.Frame(card, bg=colour, padx=25, pady=15)
     top.pack(fill=tk.X)
     tk.Label(top, text=group, bg=colour, fg=WHITE, font=("Arial", 32, "bold")).pack(side=tk.LEFT)
@@ -254,7 +254,7 @@ def show_donor_card(event=None):
     tk.Label(card, text=status, bg=WHITE, fg="#16a34a" if wait == 0 else MUTED,
              font=("Arial", 15, "bold")).pack(pady=(12, 6))
     ttk.Button(card, text="Close", style="Plain.TButton", command=card.destroy).pack(pady=(0, 18))
-
+    card.geometry(f"+{root.winfo_rootx() + 380}+{root.winfo_rooty() + 120}"); card.lift(); card.focus_force()   # middle of app, in front
 
 # ---------------- Drawing functions ----------------
 
@@ -486,8 +486,8 @@ actions = tk.Frame(find_tab, bg=WHITE)
 actions.pack(fill=tk.X, pady=(12, 0))
 ttk.Button(actions, text="Record Donation Today", style="Red.TButton", command=record_donation).pack(side=tk.LEFT)
 ttk.Button(actions, text="Delete Donor", style="Plain.TButton", command=delete_donor).pack(side=tk.LEFT, padx=10)
-tk.Label(actions, text="Double-click a donor for details   ·   Green = can donate now   ·   Grey = must wait",
-         bg=WHITE, fg=MUTED, font=("Arial", 11)).pack(side=tk.RIGHT)
+ttk.Button(actions, text="Donor Card", style="Plain.TButton", command=show_donor_card).pack(side=tk.LEFT)  # same as double-click
+tk.Label(actions, text="Double-click a donor for details  ·  Green = can donate  ·  Grey = must wait", bg=WHITE, fg=MUTED, font=("Arial", 11)).pack(side=tk.RIGHT)
 
 # ===== Tab 3: compatibility chart =====
 chart_tab = tk.Frame(tabs, bg=WHITE, padx=25, pady=15)
